@@ -24,10 +24,6 @@ const Chat = () => {
             console.log('Connected to server');
             setStatus('Connected');
             addMessageToLog('Server', '무슨 내용의 책을 작성하고 싶나요?');
-
-            // WebSocket 연결 성공 시 JWT 토큰을 서버에 전송하여 인증
-            // const authMessage = { type: 'AUTH', token: jwtToken };
-            // newSocket.send(JSON.stringify(authMessage)); // 인증 메시지 전송
         };
 
         newSocket.onmessage = (event) => {
@@ -69,10 +65,17 @@ const Chat = () => {
     const handleSendMessage = () => {
         const jwtToken = localStorage.getItem('jwtToken'); // localStorage에서 JWT 토큰을 가져옴
         if (message.trim() !== '' && socket) {
-            const messageObject = { message: message, token: jwtToken, isGeneralChatEnd: true}; // 메시지와 JWT 토큰을 전송
+            const messageObject = { message: message, token: jwtToken, isGeneralChatEnd: true }; // 메시지와 JWT 토큰을 전송
             socket.send(JSON.stringify(messageObject));
             addMessageToLog('You', message);
             setMessage('');
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // 폼 제출 방지
+            handleSendMessage(); // 메시지 전송
         }
     };
 
@@ -117,6 +120,7 @@ const Chat = () => {
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={handleKeyDown} // 엔터 입력 감지
                 placeholder="Type your message here"
             />
             <button onClick={handleSendMessage}>Send</button>
