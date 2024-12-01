@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 const Chat = () => {
+
+    const API_BASE_URL = process.env.REACT_APP_SOCKET_API_BASE_URL;
+
+
     const [socket, setSocket] = useState(null);
     const [message, setMessage] = useState('');
     const [chatLog, setChatLog] = useState([]);
@@ -17,7 +21,7 @@ const Chat = () => {
         }
 
         // WebSocket 연결 생성
-        const newSocket = new WebSocket('ws://localhost/chat');
+        const newSocket = new WebSocket(`${API_BASE_URL}/chat`);
         setSocket(newSocket);
 
         newSocket.onopen = () => {
@@ -51,7 +55,7 @@ const Chat = () => {
         return () => {
             if (newSocket) newSocket.close();
         };
-    }, []);
+    }, [API_BASE_URL]);
 
     const addMessageToLog = (sender, message) => {
         setChatLog((prevLog) => [...prevLog, { sender, message }]);

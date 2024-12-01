@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
+
+    const API_BASE_URL = process.env.REACT_APP_SERVER_API_BASE_URL;
+
     const [userName, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -12,7 +15,7 @@ function Login() {
         event.preventDefault(); // 기본 폼 동작 막기
 
         try {
-            const response = await fetch('http://localhost/api/auth/login', {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

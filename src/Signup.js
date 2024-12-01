@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 const Signup = () => {
+
+    const API_BASE_URL = process.env.REACT_APP_SERVER_API_BASE_URL;
+
     const [status, setStatus] = useState('');
 
     // 로그인 데이터 입력
@@ -14,7 +17,7 @@ const Signup = () => {
             for (const user of jsonData) {
 
                 // url 입력
-                const response = await fetch('https://example-com/', {
+                const response = await fetch(`${API_BASE_URL}/auth/signup`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
