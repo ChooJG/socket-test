@@ -21,7 +21,8 @@ const Chat = () => {
         }
 
         // WebSocket 연결 생성
-        const newSocket = new WebSocket(`${API_BASE_URL}/chat`);
+//        const newSocket = new WebSocket(`${API_BASE_URL}/chat`);
+        const newSocket = new WebSocket("https://dev-api.dreamai.studio/chat")
         setSocket(newSocket);
 
         newSocket.onopen = () => {

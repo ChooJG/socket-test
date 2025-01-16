@@ -5,7 +5,7 @@ function Login() {
 
     const API_BASE_URL = process.env.REACT_APP_SERVER_API_BASE_URL;
 
-    const [userName, setUsername] = useState('');
+    const [username, setusername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [jwtToken, setJwtToken] = useState(''); // JWT 토큰을 화면에 표시하기 위한 상태
@@ -20,7 +20,7 @@ function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userName, password }),
+                body: JSON.stringify({ username, password }),
                 credentials: 'include', // 쿠키 전달 옵션
             });
 
@@ -60,11 +60,11 @@ function Login() {
             <h2>로그인</h2>
             <form onSubmit={handleLogin}>
                 <div>
-                    <label>Username:</label>
+                    <label>username:</label>
                     <input
                         type="text"
-                        value={userName}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={username}
+                        onChange={(e) => setusername(e.target.value)}
                         required
                     />
                 </div>
